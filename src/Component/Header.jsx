@@ -4,6 +4,7 @@ import {trending_news} from "../Component/trending-news";
 const Header = () =>{
 
     const[time,setTime]=useState("");
+    const[searchItem,setSearchItem] = useState("");
     setInterval(()=>{
         setTime(new Date().toLocaleString());
     },1000)
@@ -12,6 +13,13 @@ const Header = () =>{
         setTime(new Date().toLocaleString());
     },[])
     
+    const searchFunction=(e)=>{
+        if(e.key !== "Enter"){
+            setSearchItem(e.target.value);
+        }else{
+            window.open(window.location.origin+"/search/"+searchItem);
+        }
+    }
 
     return <>
     <div className="flex flex-col justify-center items-center min-w-full relative my-3">
@@ -24,7 +32,7 @@ const Header = () =>{
     </span>
     {/* Search Bar */}
     <div className=" w-1/3 relative my-2 mx-4 flex flex-col items-end">
-        <input placeholder="Search" className=" w-1/2 focus:outline-none border-2 border-gray-300 text-sm px-2 py-1"/>
+        <input placeholder="Search" className=" w-1/2 focus:outline-none border-2 border-gray-300 text-sm px-2 py-1" onKeyUp={(e)=>{searchFunction(e)}} />
         <div className="flex flex-row items-start w-1/2">
             <span className="text-xs font-semibold mx-4">Trending:</span>
             <span className=" text-xs break-all text-left text-gray-500 cursor-pointer">
@@ -36,11 +44,11 @@ const Header = () =>{
 
     {/* Menu Bar */}
     <div className="flex flex-row w-3/4 gap-2 justify-evenly my-4 font-semibold">
-        <a href="#">Home</a>
-        <a href="#">Business</a>
-        <a href="#">Health</a>
-        <a href="#">Sports</a>
-        <a href="#">Technology</a>
+        <a href="/">Home</a>
+        <a href="/business">Business</a>
+        <a href="/health">Health</a>
+        <a href="/sports">Sports</a>
+        <a href="/technology">Technology</a>
     </div>
     {/* Menu Bar */}
     <div className="relative w-full h-8">

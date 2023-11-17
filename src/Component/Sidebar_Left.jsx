@@ -1,12 +1,11 @@
 import {trending_news} from "../Component/trending-news";
-import { useState } from "react";
 const Sidebar_Left = (props) =>{
 
     return <>
         
-        <div className={props.scrollY>=180? props.className +" sticky top-0 p-2 border-2 max-h-[35rem] overflow-x-hidden scrollbar-thin": props.className +" p-2 border-2 max-h-[35rem] overflow-x-hidden scrollbar-thin"}>
+        <div className={props.scrollY>=180 && window.screen.availWidth>767? props.className +" md:m-4 md:bg-slate-300 sticky top-0 p-2 border-2 max-h-[35rem] overflow-x-hidden scrollbar-thin": props.className +" p-2 border-2 max-h-[35rem] overflow-x-hidden scrollbar-thin"}>
             {trending_news.articles.map(news=>{
-                return <div className="flex flex-col justify-center p-2 my-4 border-b-2 cursor-pointer">
+                return <div className="flex flex-col justify-center p-2 my-4 border-b-2 cursor-pointer md:bg-white">
                     <span className="block w-full h-32 bg-cover relative" style={{backgroundImage: `url("${news.urlToImage}")`}}></span>
                     <span className="flex flex-col justify-start items-center">
                     <span className="text-sm font-semibold text-left">{news.title}</span>

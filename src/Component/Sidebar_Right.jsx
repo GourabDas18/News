@@ -2,7 +2,7 @@ import {trending_news} from "../Component/trending-news";
 const Sidebar_Right=(props)=>{
 
     return <>
-    <div className={props.scrollY>=180?props.className+" self-start sticky top-0 right-0":props.className+" relative"}>
+    <div className={props.scrollY>=180&&window.screen.availWidth>767?props.className+" self-start sticky top-0 right-0":props.className+" relative"}>
         <hr></hr>
         <span className="text-left font-semibold text-lg w-full ">Popular News</span>
         <div className="px-1">

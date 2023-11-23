@@ -3,7 +3,8 @@ import Sidebar_Right from "../Component/Sidebar_Right";
 import Sidebar_Left from "../Component/Sidebar_Left";
 import Main_news from "../Component/Main_news";
 import Footer from "../Component/Footer";
-import { useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import { MyContext } from "../Context";
 
 const Home = () =>{
 
@@ -11,6 +12,20 @@ const Home = () =>{
     window.onscroll = (e) => {
         setScrollY(window.scrollY);
     }
+
+    const {homeNews,setHomeNews} = useContext(MyContext)
+    useEffect(()=>{
+        if(homeNews===""){
+            fetch("https://newsapi.org/v2/top-headlines?country=in&apiKey=149faa0fd9db4b78ad5a7a4cf55d7164",{
+                method:"GET",  
+            }).then(val=>val.text()).then(data=>{
+                setHomeNews(JSON.parse(data))
+            })
+        }
+    },[])
+
+
+
     return <>
     <div>
         <Header />

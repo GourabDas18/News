@@ -7,8 +7,16 @@ import Business from './Pages/Business';
 import Health from './Pages/Health';
 import Sports from './Pages/Sports';
 import Search_page from './Pages/Search_page';
+import { useState } from 'react';
+import { MyContext } from './Context';
 function App() {
+  const[homeNews, setHomeNews] = useState("");
+  const[healthNews, setHealthNews] = useState({});
+  const[sportsNews, setSportsNews] = useState({});
+  const[techNews, setTechNews] = useState({});
+
   return (
+    <MyContext.Provider value={{homeNews,setHomeNews,healthNews,setHealthNews,sportsNews,setSportsNews,techNews,setTechNews}}>
     <div className="App">
       <BrowserRouter>
       <Routes>
@@ -22,6 +30,7 @@ function App() {
       </Routes>
       </BrowserRouter>
     </div>
+    </MyContext.Provider>
   );
 }
 

@@ -52,10 +52,10 @@ const Header = () =>{
         <Link to="/technology">Technology</Link>
     </div>
     {/* Menu Bar */}
-    <div className="relative w-full h-8">
-        <span className="absolute left-0 w-40 md:w-28 bg-red-500 overflow-hidden z-10">
-            <p className="p-1 md:text-sm md:text-left text-white text-center flex gap-2 justify-center"><i className="fi fi-ss-chart-line-up"></i>Trending</p>
-            <span className="absolute w-12 h-7 block bg-gray-300 rotate-[60deg] -right-5 top-0"></span>
+    <div className="relative w-full h-8 overflow-hidden">
+        <span className="absolute left-0 w-40 md:w-[7rem] bg-red-500 z-10 min-h-full">
+            <p className="p-1 md:text-sm md:text-left text-white text-center flex gap-2 justify-center z-10"><i className="fi fi-ss-chart-line-up"></i>Trending</p>
+            <span className="absolute w-5 h-10 block bg-red-500 rotate-[340deg] -right-2 top-0"></span>
         </span>
         <span className="min-w-full min-h-full bg-gray-300 relative flex ">
         <Marquee>

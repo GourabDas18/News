@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import Header from "../Component/Header";
 import { useParams } from "react-router-dom";
 import Sidebar_Right from "../Component/Sidebar_Right";
@@ -14,7 +14,7 @@ const Search_page = (props) =>{
     let {q}  = useParams();
     const[search,setSearch]=useState({"articles":[]})
 
-    const searching=(data)=>{
+    const searching=useCallback((data)=>{
         var url = `https://newsapi.org/v2/everything?q=${data}&pageSize=25&apiKey=149faa0fd9db4b78ad5a7a4cf55d7164`
         try {
             fetch(url,{
@@ -23,10 +23,12 @@ const Search_page = (props) =>{
         } catch (error) {
             
         }
-    }
+    },[setSearch])
 
     useState(()=>{
-        searching(q)
+        if(search.articles.length===0){
+            searching(q);
+        }
     },[])
 
 

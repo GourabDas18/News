@@ -16,7 +16,7 @@ const Main_news=(props)=>{
             <span className="bg-red-500 text-white p-1 w-max">{new Date(news.publishedAt).getUTCFullYear()+"-"+(parseInt(new Date(news.publishedAt).getMonth())+1)+"-"+new Date(news.publishedAt).getUTCDate()}</span>
             <span className="flex flex-col gap-2 text-left bg-[#100c0c36]">
                 <span className="text-xl md:text-sm text-white shadow-sm p-4 py-1 drop-shadow-lg bg-red-700">{news.title}</span>
-                <span className=" text-gray-200 md:text-xs px-4 py-1 font-semibold">{news.description} <button className=" py-1 px-4 bg-white text-xs text-black">Read More</button></span>
+                <span className=" text-gray-200 md:text-xs px-4 py-1 font-semibold">{news.description} <a href={news.url} target="blank" className=" py-1 px-4 bg-white text-xs text-black">Read More</a></span>
             </span>
         </div>
         </>

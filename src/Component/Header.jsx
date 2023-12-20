@@ -61,7 +61,7 @@ const Header = () =>{
         <Marquee>
     {trending_news.articles.map(article=>{
         return <>
-        <span className=" text-red-500 text-xs font-semibold cursor-pointer">{article.title}</span>
+        <a href={article.url} target="blank"><span className=" text-red-500 text-xs font-semibold cursor-pointer">{article.title}</span></a>
         <span className="mx-4">|</span>
         </>
     })}

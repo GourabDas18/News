@@ -14,7 +14,6 @@ const Health = () => {
 
     return <>
         <Header />
-
         <div className="flex flex-row md:flex-col-reverse md:items-center justify-between">
             <Sidebar_Left className={"w-1/5 md:w-[100%] md:m-4 md:px-2 md:bg-gray-300 self-start"} scrollY={scrollY} />
             <div className="flex flex-col gap-2 m-2 px-4 items-center relative max-w-5xl h-max">

@@ -16,7 +16,7 @@ const Home = () =>{
     const {homeNews,setHomeNews} = useContext(MyContext)
     useEffect(()=>{
         if(homeNews===""){
-            fetch("https://newsapi.org/v2/top-headlines?country=in&pageSize=100&apiKey=149faa0fd9db4b78ad5a7a4cf55d7164",{
+            fetch("https://newsapi.org/v2/top-headlines?country=in&pageSize=50&apiKey=149faa0fd9db4b78ad5a7a4cf55d7164",{
                 method:"GET",  
             }).then(val=>val.text()).then(data=>{
                 if(data.status==="error"){

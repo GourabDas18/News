@@ -1,6 +1,7 @@
+import { useNavigate } from "react-router-dom";
 import {trending_news} from "../Component/trending-news";
 const Sidebar_Right=(props)=>{
-
+    const navigate = useNavigate();
     return <>
     <div className={props.scrollY>=180&&window.screen.availWidth>767?props.className+" self-start sticky top-0 right-0":props.className+" relative"}>
         <hr></hr>
@@ -18,7 +19,7 @@ const Sidebar_Right=(props)=>{
                     </span>
                     </div>
                 }else if(i===4){
-                    return <button className="w-40 py-1 text-slate-100 border-2 text-sm bg-red-500 shadow-sm hover:bg-slate-100 hover:text-red-500 transition-all">See More</button>
+                    return <button className="w-40 py-1 text-slate-100 border-2 text-sm bg-red-500 shadow-sm hover:bg-slate-100 hover:text-red-500 transition-all" onClick={()=>{navigate("/trending")}}>See More</button>
                 }else{
                     return <></>
                 }

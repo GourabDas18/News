@@ -1,9 +1,10 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import Marquee from "react-fast-marquee";
 import {trending_news} from "../Component/trending-news";
 import { Link } from "react-router-dom";
+import { MyContext } from "../Context";
 const Header = () =>{
-
+    const {homeNews}=useContext(MyContext);
     const[time,setTime]=useState("");
     const[searchItem,setSearchItem] = useState("");
     setInterval(()=>{
@@ -59,12 +60,17 @@ const Header = () =>{
         </span>
         <span className="min-w-full min-h-full bg-gray-300 relative flex ">
         <Marquee>
-    {trending_news.articles.map(article=>{
+    {
+    homeNews ?
+    homeNews.articles.map(article=>{
         return <>
         <a href={article.url} target="blank"><span className=" text-red-500 text-xs font-semibold cursor-pointer">{article.title}</span></a>
         <span className="mx-4">|</span>
         </>
-    })}
+    })
+
+    :<></>
+    }
   </Marquee>
         </span>
     </div>

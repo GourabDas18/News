@@ -3,18 +3,32 @@ import Header from "../Component/Header";
 import Sidebar_Left from "../Component/Sidebar_Left";
 import Sidebar_Right from "../Component/Sidebar_Right";
 import { business_news } from "../Component/trending-news";
-import { useState } from "react";
-
+import { useState,useEffect,useContext } from "react";
+import { MyContext } from "../Context";
 const Business=()=>{
 
 const [scrollY,setScrollY] = useState(0);
 window.onscroll=(e)=>{
     setScrollY(window.scrollY);
 }
+const {homeNews,setHomeNews} = useContext(MyContext)
+useEffect(()=>{
+    if(homeNews===null){
+        fetch(`https://gnews.io/api/v4/top-headlines?category=general&lang=en&country=in&max=10&apikey=${process.env.REACT_APP_API_KEY}`,{
+            method:"GET",  
+        }).then(val=>val.text()).then(data=>{
+            if(data.status==="error"){
+                alert("Have some issue. Please contact with dev.");
+            }else{
+                setHomeNews(JSON.parse(data));
+            }
+           
+        }).catch(error=>alert("Check Your Internet Connection and Refresh The Page."))
+    }
+},[])
+return <div className="relative pb-44 min-h-screen">
 
-return <>
-
-<Header />
+<Header headline={homeNews}/>
 <div className="flex flex-row md:flex-col-reverse md:items-center justify-between">
             <Sidebar_Left className={"w-1/5 md:w-[100%] md:m-4 md:px-2 md:bg-gray-300 self-start"} scrollY={scrollY} />
             <div className="flex flex-col gap-2 m-2 px-4 items-center relative max-w-5xl h-max">
@@ -41,7 +55,7 @@ return <>
         </div>
         <Footer />
 
-</>
+</div>
 
 }
 

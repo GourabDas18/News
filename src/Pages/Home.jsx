@@ -15,25 +15,23 @@ const Home = () =>{
 
     const {homeNews,setHomeNews} = useContext(MyContext)
     useEffect(()=>{
-        if(homeNews===""){
-            fetch("https://newsapi.org/v2/top-headlines?country=in&pageSize=50&apiKey=149faa0fd9db4b78ad5a7a4cf55d7164",{
+        if(homeNews===null){
+            fetch(`https://gnews.io/api/v4/top-headlines?category=general&lang=en&country=in&max=10&apikey=${process.env.REACT_APP_API_KEY}`,{
                 method:"GET",  
             }).then(val=>val.text()).then(data=>{
                 if(data.status==="error"){
                     alert("Have some issue. Please contact with dev.");
                 }else{
-                    setHomeNews(JSON.parse(data))
+                    setHomeNews(JSON.parse(data));
                 }
                
             }).catch(error=>alert("Check Your Internet Connection and Refresh The Page."))
         }
     },[])
 
-
-
-    return <>
+    return <div className="relative pb-44 min-h-screen">
     <div>
-        <Header />
+        <Header headline={homeNews}/>
         <div className="flex flex-row md:flex-col-reverse justify-between">
         <Sidebar_Left className={"w-1/5 md:w-[100%] md:px-2 md:bg-gray-300"} scrollY={scrollY}/>
         <Main_news className={"w-[59%] md:w-[90%] md:m-4"} />
@@ -41,7 +39,7 @@ const Home = () =>{
         </div>
         <Footer />
     </div>
-    </>
+    </div>
 
 }
 

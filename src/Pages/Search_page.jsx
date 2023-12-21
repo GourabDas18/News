@@ -1,9 +1,9 @@
-import { useCallback, useState } from "react";
+import { useCallback, useState ,useContext, useEffect } from "react";
 import Header from "../Component/Header";
 import { useParams } from "react-router-dom";
 import Sidebar_Right from "../Component/Sidebar_Right";
 import Footer from "../Component/Footer";
-
+import { MyContext } from "../Context";
 const Search_page = (props) =>{
 
     const [scrollY,setScrollY] = useState(0);
@@ -13,9 +13,10 @@ const Search_page = (props) =>{
 
     let {q}  = useParams();
     const[search,setSearch]=useState({"articles":[]})
-
+    const {homeNews,setHomeNews} = useContext(MyContext)
     const searching=useCallback((data)=>{
-        var url = `https://newsapi.org/v2/everything?q=${data}&pageSize=25&apiKey=149faa0fd9db4b78ad5a7a4cf55d7164`
+       var Timer = setTimeout(()=>{
+        var url = `https://gnews.io/api/v4/search?q=${data}&lang=en&country=us&max=10&apikey=${process.env.REACT_APP_API_KEY}`;
         try {
             fetch(url,{
                 method: "GET",
@@ -23,18 +24,34 @@ const Search_page = (props) =>{
         } catch (error) {
             
         }
+       },1200)
     },[setSearch])
 
-    useState(()=>{
-        if(search.articles.length===0){
-            searching(q);
+    useEffect(()=>{
+        if(homeNews===null){
+            fetch(`https://gnews.io/api/v4/top-headlines?category=general&lang=en&country=in&max=10&apikey=${process.env.REACT_APP_API_KEY}`,{
+                method:"GET",  
+            }).then(val=>val.text()).then(data=>{
+                if(data.status==="error"){
+                    alert("Have some issue. Please contact with dev.");
+                    if(search.articles.length===0){
+                        searching(q);
+                    }
+                }else{
+                    setHomeNews(JSON.parse(data));
+                    if(search.articles.length===0){
+                        searching(q);
+                    }
+                }
+               
+            }).catch(error=>alert("Check Your Internet Connection and Refresh The Page."))
         }
     },[])
 
 
 
-    return <>
-    <Header />
+    return <div className="relative pb-44 min-h-screen">
+         <Header headline={homeNews}/>
     <div className=" flex flex-row items-end">
 
     <div>
@@ -57,7 +74,7 @@ const Search_page = (props) =>{
        <div className=" px-4 py-1 text-red-500 text-xl md:text-md font-semibold text-left"><a href={news.url} target="blank">{news.title}</a></div>
         <div className="text-sm px-4 py-1 text-left">{news.description} <a href={news.url} target="blank" className="text-red-500 font-bold  py-1 my-3">Read More</a></div>
        </div>
-       <div className="w-[35%] bg-cover h-32 md:w-[95%] md:h-48" style={{backgroundImage:`url("${news.urlToImage}")`}}></div>
+       <div className="w-[35%] bg-cover h-32 md:w-[95%] md:h-48" style={{backgroundImage:`url("${news.image}")`}}></div>
         </div>
             </>
         })}
@@ -69,7 +86,7 @@ const Search_page = (props) =>{
     </div>
     </div>
     <Footer />
-    </>
+    </div>
 }
 
 export default Search_page;
